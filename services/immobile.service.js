@@ -5,8 +5,14 @@ async function createImmobile(immobile) {
 }
 
 // Update
+async function updateImmobile(immobile) {
+  return await ImmobileRepository.updateImmobile(immobile);
+}
 
 // Delete
+async function deleteImmobile(i_id) {
+  return await ImmobileRepository.deleteImmobile(i_id);
+}
 
 // Check a single
 
@@ -18,4 +24,4 @@ async function getImmobiles(iValue, iType, iLocation, iPayment) {
   return await ImmobileRepository.getImmobiles();
 }
 
-export default { createImmobile, getImmobiles };
+export default { createImmobile, getImmobiles, updateImmobile, deleteImmobile };

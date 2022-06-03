@@ -5,8 +5,14 @@ async function createSeller(seller) {
 }
 
 // Update
+async function updateSeller(seller) {
+  return await SellerRepository.updateSeller(seller);
+}
 
 // Delete
+async function deleteSeller(s_id) {
+  return await SellerRepository.deleteSeller(s_id);
+}
 
 // Check a single
 
@@ -15,4 +21,4 @@ async function getSellers() {
   return await SellerRepository.getSellers();
 }
 
-export default { createSeller, getSellers };
+export default { createSeller, getSellers, updateSeller, deleteSeller };

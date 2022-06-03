@@ -25,8 +25,41 @@ async function createImmobile(immobile) {
 }
 
 // PUT - Update a immobile
+async function updateImmobile(immobile) {
+  const conn = await connect();
+
+  try {
+    const sql = `UPDATE immobile SET i_type = $1, i_value = $2, i_location = $3, i_payment = $4, i_rooms = $5, i_url = $6 WHERE immobile_id = $7 RETURNING *`;
+    const values = [
+      immobile.i_type,
+      immobile.i_value,
+      immobile.i_location,
+      immobile.i_payment,
+      immobile.i_rooms,
+      immobile.i_url,
+      immobile.immobile_id,
+    ];
+    const res = await conn.query(sql, values);
+    return res.rows[0];
+  } catch (err) {
+    throw err;
+  } finally {
+    conn.release();
+  }
+}
 
 // DELETE - Delete a immobile
+async function deleteImmobile(i_id) {
+  const conn = await connect();
+
+  try {
+    await conn.query('DELETE FROM immobile WHERE immobile_id = $1', [i_id]);
+  } catch (err) {
+    throw err;
+  } finally {
+    conn.release();
+  }
+}
 
 // GET all immobiles
 async function getImmobiles() {
@@ -91,4 +124,10 @@ async function getFilteredImmobile(iValue, iType, iLocation, iPayment) {
   }
 }
 
-export default { createImmobile, getImmobiles, getFilteredImmobile };
+export default {
+  createImmobile,
+  updateImmobile,
+  deleteImmobile,
+  getImmobiles,
+  getFilteredImmobile,
+};
